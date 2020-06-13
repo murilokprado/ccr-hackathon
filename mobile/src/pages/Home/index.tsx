@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Feather,
   MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
-import Constants from "expo-constants";
-import { useNavigation } from "@react-navigation/native";
+  MaterialIcons
+} from '@expo/vector-icons';
+import Constants from 'expo-constants';
+import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   View,
@@ -13,11 +13,13 @@ import {
   Alert,
   Image,
   TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import * as Location from "expo-location";
-import { RectButton } from "react-native-gesture-handler";
-import { Camera } from "expo-camera";
+  ScrollView
+} from 'react-native';
+import * as Location from 'expo-location';
+import { RectButton } from 'react-native-gesture-handler';
+import { Camera } from 'expo-camera';
+
+import Post from './Post';
 
 interface Address {
   city: string;
@@ -28,28 +30,46 @@ interface Address {
   name: string;
 }
 
+const posts = [
+  {
+    name: 'Mauricio',
+    dateTime: '12/06/2020 - 11:00',
+    image: require('../../assets/parada1.png')
+  },
+  {
+    name: 'Souza',
+    dateTime: '11/06/2020 - 03:07',
+    image: require('../../assets/parada1.png')
+  },
+  {
+    name: 'Pedro',
+    dateTime: '09/06/2020 - 10:10',
+    image: require('../../assets/parada1.png')
+  }
+];
+
 const Login = () => {
   const navigation = useNavigation();
 
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
 
   function handleNavigationBack() {
     navigation.goBack();
   }
 
   function handleNavigationToCamera() {
-    navigation.navigate("Camera");
+    navigation.navigate('Camera');
   }
 
   useEffect(() => {
     async function loadLocation() {
       const { status } = await Location.requestPermissionsAsync();
 
-      if (status !== "granted") {
+      if (status !== 'granted') {
         Alert.alert(
-          "Ops....",
-          "Precisamos de sua permissão para obter a sua localização"
+          'Ops....',
+          'Precisamos de sua permissão para obter a sua localização'
         );
         return;
       }
@@ -60,20 +80,20 @@ const Login = () => {
 
       const address: Address[] = await Location.reverseGeocodeAsync({
         latitude,
-        longitude,
+        longitude
       });
 
       console.log(address[0]);
 
-      setCity(address[0].city ? address[0].city : "Joinville");
-      setState(address[0].region ? address[0].region : "Santa Catarina");
+      setCity(address[0].city ? address[0].city : 'Joinville');
+      setState(address[0].region ? address[0].region : 'Santa Catarina');
     }
 
     loadLocation();
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+    <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.header}>
@@ -82,7 +102,7 @@ const Login = () => {
             <Text style={styles.city}>{city}</Text>
             <Text style={styles.state}>, {state}</Text>
             <Image
-              source={require("../../assets/roberto.jpeg")}
+              source={require('../../assets/roberto.jpeg')}
               style={styles.image}
             />
           </View>
@@ -99,7 +119,7 @@ const Login = () => {
 
           <View style={styles.containerButtons}>
             <RectButton
-              style={[styles.button, { backgroundColor: "#2D9CDB" }]}
+              style={[styles.button, { backgroundColor: '#2D9CDB' }]}
               onPress={() => {}}
             >
               <Feather
@@ -114,7 +134,7 @@ const Login = () => {
             <RectButton
               style={[
                 styles.button,
-                { backgroundColor: "#FFBA49", marginLeft: 10 },
+                { backgroundColor: '#FFBA49', marginLeft: 10 }
               ]}
               onPress={() => {}}
             >
@@ -128,7 +148,7 @@ const Login = () => {
             </RectButton>
 
             <RectButton
-              style={[styles.button, { backgroundColor: "#5B7488" }]}
+              style={[styles.button, { backgroundColor: '#5B7488' }]}
               onPress={() => {}}
             >
               <MaterialCommunityIcons
@@ -143,7 +163,7 @@ const Login = () => {
             <RectButton
               style={[
                 styles.button,
-                { backgroundColor: "#FCAE76", marginLeft: 10 },
+                { backgroundColor: '#FCAE76', marginLeft: 10 }
               ]}
               onPress={() => {}}
             >
@@ -156,24 +176,12 @@ const Login = () => {
               <Text style={styles.buttonText}>Negociação</Text>
             </RectButton>
           </View>
-          <View style={styles.momentsContainer}>
+
+          <View style={{ marginBottom: 32 }}>
             <Text style={styles.textBold}>Momentos</Text>
-            <View style={styles.momentTab}></View>
-            <View style={styles.moments}>
-              <View style={styles.momentHeader}>
-                <Image
-                  source={require("../../assets/roberto.jpeg")}
-                  style={styles.imageMoment}
-                />
-                <Text style={styles.momentDescription}>
-                  Mauricio - 10/06/2020 - 11:00
-                </Text>
-              </View>
-              <Image
-                source={require("../../assets/parada1.png")}
-                style={styles.imageStop}
-              />
-            </View>
+            {posts.map((post, index) => (
+              <Post key={index} {...post} />
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -202,134 +210,108 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 32,
-    paddingTop: 20 + Constants.statusBarHeight,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
+    paddingLeft: 8,
+    paddingRight: 8,
+    alignSelf: 'center'
   },
   header: {
-    flexDirection: "row",
+    flexDirection: 'row',
+    paddingTop: 20 + Constants.statusBarHeight
   },
   infoIcon: {
-    alignSelf: "center",
-    color: "#EB5757",
+    alignSelf: 'center',
+    color: '#EB5757',
     shadowOffset: { width: 0, height: 5 },
-    shadowColor: "#EB5757",
+    shadowColor: '#EB5757',
     shadowOpacity: 0.25,
-    shadowRadius: 2,
+    shadowRadius: 2
   },
   mapPinIcon: {
-    alignSelf: "center",
-    color: "#80A1C1",
+    alignSelf: 'center',
+    color: '#80A1C1',
     marginLeft: 20,
-    marginTop: 1,
+    marginTop: 1
   },
   information: {
-    flexDirection: "row",
+    flexDirection: 'row'
   },
   city: {
-    color: "#80A1C1",
-    alignSelf: "center",
+    color: '#80A1C1',
+    alignSelf: 'center',
     fontSize: 16,
-    fontFamily: "Roboto_700Bold",
+    fontFamily: 'Roboto_700Bold'
   },
   state: {
-    alignSelf: "center",
+    alignSelf: 'center',
     fontSize: 16,
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular'
   },
   image: {
-    alignSelf: "center",
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     width: 50,
     height: 50,
     borderRadius: 100,
-    marginLeft: 50,
+    marginLeft: 50
   },
   text: {
     fontSize: 32,
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular'
   },
   textBold: {
     fontSize: 32,
-    fontFamily: "Roboto_700Bold",
+    fontFamily: 'Roboto_700Bold'
   },
   description: {
     fontSize: 16,
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular'
   },
   welcome: {
     marginTop: 20,
-    height: 60,
+    height: 60
   },
   containerButtons: {
-    flexWrap: "wrap",
-    flexDirection: "row",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     marginTop: 30,
     width: 330,
-    height: 180,
+    height: 180
   },
   button: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: 20,
-    overflow: "hidden",
-    alignItems: "center",
+    overflow: 'hidden',
+    alignItems: 'center',
     marginBottom: 10,
     width: 160,
-    height: 70,
+    height: 70
   },
   buttonText: {
     marginLeft: 10,
     fontSize: 16,
-    fontFamily: "Roboto_400Regular",
-    color: "#FFFFFF",
+    fontFamily: 'Roboto_400Regular',
+    color: '#FFFFFF'
   },
-  momentsContainer: {},
-  momentTab: {},
-  moments: {},
-  momentHeader: {
-    marginTop: 5,
-    flexDirection: "row",
-    backgroundColor: "#F5F5F5",
-    height: 50,
-    width: "auto",
-  },
-  imageMoment: {
-    alignSelf: "center",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    width: 30,
-    height: 30,
-    borderRadius: 100,
-    marginLeft: 10,
-  },
-  imageStop: {
-    width: "auto",
-  },
-  momentDescription: {
-    fontSize: 16,
-    fontFamily: "Roboto_400Regular",
-    alignSelf: "center",
-    marginLeft: 10,
-    color: "#5B7488",
-  },
-  moment: {},
+
   footer: {
-    width: "100%",
+    width: '100%',
     height: 50,
-    backgroundColor: "#BB6BD9",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 0,
+    backgroundColor: '#BB6BD9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0
   },
   footerButton: {
-    flexDirection: "row",
-    alignSelf: "center",
+    flexDirection: 'row',
+    alignSelf: 'center'
   },
   footerText: {
     fontSize: 20,
-    fontFamily: "Roboto_400Regular",
-    color: "#F5F5F5",
-    marginLeft: 10,
-  },
+    fontFamily: 'Roboto_400Regular',
+    color: '#F5F5F5',
+    marginLeft: 10
+  }
 });
