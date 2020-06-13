@@ -12,6 +12,7 @@ import {
 import { Camera as Cam } from "expo-camera";
 import Constants from "expo-constants";
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
+import * as ImagePicker from "expo-image-picker";
 
 const Camera = () => {
   const camRef = React.createRef<Cam>();
@@ -35,7 +36,6 @@ const Camera = () => {
       await camRef.current?.takePictureAsync(options).then((data) => {
         setCapturedPhoto(data.uri);
         setModal(true);
-        console.log(data.uri);
       });
     }
   }
@@ -48,10 +48,30 @@ const Camera = () => {
     );
   }
 
+  async function openGallery() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+  }
+
   useEffect(() => {
     (async () => {
       const { status } = await Cam.requestPermissionsAsync();
       setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
     })();
   }, []);
 
@@ -69,7 +89,19 @@ const Camera = () => {
         type={type}
         flashMode={flash}
         ref={camRef}
-      />
+      >
+        <View style={styles.gallery}>
+          <TouchableOpacity style={styles.button} onPress={openGallery}>
+            <MaterialCommunityIcons
+              name="folder-open"
+              size={30}
+              color="#FFFFFF"
+              style={styles.folder}
+            ></MaterialCommunityIcons>
+          </TouchableOpacity>
+        </View>
+      </Cam>
+
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={handleTurnFlash}>
           <MaterialIcons
@@ -78,7 +110,7 @@ const Camera = () => {
             }
             size={30}
             style={styles.icon}
-          ></MaterialIcons>
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -89,14 +121,14 @@ const Camera = () => {
             name="circle-slice-8"
             size={80}
             style={styles.icon}
-          ></MaterialCommunityIcons>
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSwitchCamera}>
           <MaterialCommunityIcons
             name="camera-party-mode"
             size={30}
             style={styles.icon}
-          ></MaterialCommunityIcons>
+          />
         </TouchableOpacity>
 
         {capturedPhoto != "" && (
@@ -114,23 +146,8 @@ const Camera = () => {
                 />
               </TouchableOpacity>
             </View>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#202020",
-                padding: 20,
-              }}
-            >
-              <Image
-                style={{
-                  width: "100%",
-                  height: 300,
-                  borderRadius: 20,
-                }}
-                source={{ uri: capturedPhoto }}
-              />
+            <View style={styles.modalImage}>
+              <Image style={styles.image} source={{ uri: capturedPhoto }} />
             </View>
           </Modal>
         )}
@@ -148,6 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 50 + Constants.statusBarHeight,
     height: winHeight,
     width: winWidth,
+    flexDirection: "column-reverse",
   },
   container: {
     flex: 1,
@@ -172,5 +190,28 @@ const styles = StyleSheet.create({
   icon: {
     color: "rgba(255, 255, 255, 0.8)",
     marginBottom: 10,
+  },
+  gallery: {
+    width: "auto",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row-reverse",
+  },
+  modalImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#202020",
+    padding: 20,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+    borderRadius: 20,
+  },
+  folder: {
+    color: "rgba(255, 255, 255, 0.8)",
   },
 });
