@@ -121,17 +121,16 @@ const Login = () => {
             />
           </View>
 
-          <RectButton onPress={() => handleSearch()}>
-            <TextInput
-              placeholder="Pesquise aqui locais, pessoas..."
-              style={{
-                backgroundColor: '#E2E9EE',
-                marginTop: 24,
-                padding: 8,
-                borderRadius: 20
-              }}
-            />
-          </RectButton>
+          <TextInput
+            placeholder="Pesquise aqui locais, pessoas..."
+            style={{
+              backgroundColor: '#E2E9EE',
+              marginTop: 24,
+              padding: 8,
+              borderRadius: 20
+            }}
+            onFocus={handleSearch}
+          />
 
           <View style={styles.containerButtons}>
             <RectButton
