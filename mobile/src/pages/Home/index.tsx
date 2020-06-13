@@ -13,7 +13,8 @@ import {
   Alert,
   Image,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 import * as Location from 'expo-location';
 import { RectButton } from 'react-native-gesture-handler';
@@ -32,19 +33,28 @@ interface Address {
 
 const posts = [
   {
-    name: 'Mauricio',
+    userName: 'Amarildo Jr.',
+    userImage: require('../../assets/caminhoneiro1.png'),
     dateTime: '12/06/2020 - 11:00',
-    image: require('../../assets/parada1.png')
+    photo: require('../../assets/parada1.png')
   },
   {
-    name: 'Souza',
+    userName: 'Souza',
+    userImage: require('../../assets/caminhoneiro2.png'),
     dateTime: '11/06/2020 - 03:07',
-    image: require('../../assets/parada1.png')
+    photo: require('../../assets/parada2.png')
   },
   {
-    name: 'Pedro',
+    userName: 'Pedro',
+    userImage: require('../../assets/caminhoneiro3.png'),
     dateTime: '09/06/2020 - 10:10',
-    image: require('../../assets/parada1.png')
+    photo: require('../../assets/parada3.png')
+  },
+  {
+    userName: 'Pedro',
+    userImage: require('../../assets/caminhoneiro4.png'),
+    dateTime: '09/06/2020 - 10:10',
+    photo: require('../../assets/parada4.png')
   }
 ];
 
@@ -60,6 +70,10 @@ const Login = () => {
 
   function handleNavigationToCamera() {
     navigation.navigate('Camera');
+  }
+
+  function handleSearch() {
+    navigation.navigate('Search');
   }
 
   useEffect(() => {
@@ -102,20 +116,22 @@ const Login = () => {
             <Text style={styles.city}>{city}</Text>
             <Text style={styles.state}>, {state}</Text>
             <Image
-              source={require('../../assets/roberto.jpeg')}
+              source={require('../../assets/roberto.png')}
               style={styles.image}
             />
           </View>
 
-          <View style={styles.welcome}>
-            <View style={styles.information}>
-              <Text style={styles.text}>Olá </Text>
-              <Text style={styles.textBold}>Roberto,</Text>
-            </View>
-            <Text style={styles.description}>
-              vamos juntos desbravar este Brasil
-            </Text>
-          </View>
+          <RectButton onPress={() => handleSearch()}>
+            <TextInput
+              placeholder="Pesquise aqui locais, pessoas..."
+              style={{
+                backgroundColor: '#E2E9EE',
+                marginTop: 24,
+                padding: 8,
+                borderRadius: 20
+              }}
+            />
+          </RectButton>
 
           <View style={styles.containerButtons}>
             <RectButton

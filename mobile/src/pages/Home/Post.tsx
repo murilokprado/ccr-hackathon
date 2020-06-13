@@ -3,9 +3,10 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 interface Post {
-  name: string;
+  userName: string;
+  userImage: string;
   dateTime: string;
-  image: String;
+  photo: string;
 }
 
 const Post = (props: Post) => {
@@ -14,15 +15,12 @@ const Post = (props: Post) => {
       <View style={styles.momentTab}></View>
       <View style={styles.moments}>
         <View style={styles.momentHeader}>
-          <Image
-            source={require('../../assets/roberto.jpeg')}
-            style={styles.imageMoment}
-          />
+          <Image source={props.userImage} style={styles.imageMoment} />
           <Text style={styles.momentDescription}>
-            {props.name} - {props.dateTime}
+            {props.userName} - {props.dateTime}
           </Text>
         </View>
-        <Image source={props.image} style={styles.imageStop} />
+        <Image source={props.photo} style={styles.imageStop} />
       </View>
       <View style={styles.footer}>
         <Text style={{ color: '#5B7488' }}>Curtido por </Text>
@@ -77,7 +75,8 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   imageStop: {
-    width: 'auto'
+    width: 'auto',
+    height: 200
   },
   momentDescription: {
     fontSize: 16,
