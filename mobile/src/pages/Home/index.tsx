@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Feather as Icon } from "@expo/vector-icons";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, View, Text, Alert, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import * as Location from "expo-location";
 import { RectButton } from "react-native-gesture-handler";
+import { Camera } from "expo-camera";
 
 interface Address {
   city: string;
@@ -23,6 +36,10 @@ const Login = () => {
 
   function handleNavigationBack() {
     navigation.goBack();
+  }
+
+  function handleNavigationToCamera() {
+    navigation.navigate("Camera");
   }
 
   useEffect(() => {
@@ -56,53 +73,125 @@ const Login = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon name="info" size={30} style={styles.infoIcon} />
-        <Icon name="map-pin" size={15} style={styles.mapPinIcon} />
-        <Text style={styles.city}>{city}</Text>
-        <Text style={styles.state}>, {state}</Text>
-        <Image
-          source={require("../../assets/roberto.jpeg")}
-          style={styles.image}
-        />
-      </View>
+    <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Feather name="info" size={30} style={styles.infoIcon} />
+            <Feather name="map-pin" size={15} style={styles.mapPinIcon} />
+            <Text style={styles.city}>{city}</Text>
+            <Text style={styles.state}>, {state}</Text>
+            <Image
+              source={require("../../assets/roberto.jpeg")}
+              style={styles.image}
+            />
+          </View>
 
-      <View style={styles.welcome}>
-        <View style={styles.information}>
-          <Text style={styles.text}>Olá </Text>
-          <Text style={styles.textBold}>Roberto,</Text>
+          <View style={styles.welcome}>
+            <View style={styles.information}>
+              <Text style={styles.text}>Olá </Text>
+              <Text style={styles.textBold}>Roberto,</Text>
+            </View>
+            <Text style={styles.description}>
+              vamos juntos desbravar este Brasil
+            </Text>
+          </View>
+
+          <View style={styles.containerButtons}>
+            <RectButton
+              style={[styles.button, { backgroundColor: "#2D9CDB" }]}
+              onPress={() => {}}
+            >
+              <Feather
+                name="map"
+                size={25}
+                color="#f5f5f5"
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.buttonText}>Mapa</Text>
+            </RectButton>
+
+            <RectButton
+              style={[
+                styles.button,
+                { backgroundColor: "#FFBA49", marginLeft: 10 },
+              ]}
+              onPress={() => {}}
+            >
+              <MaterialCommunityIcons
+                name="hotel"
+                size={25}
+                color="#f5f5f5"
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.buttonText}>Paradas</Text>
+            </RectButton>
+
+            <RectButton
+              style={[styles.button, { backgroundColor: "#5B7488" }]}
+              onPress={() => {}}
+            >
+              <MaterialCommunityIcons
+                name="gas-station"
+                size={25}
+                color="#f5f5f5"
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.buttonText}>Abastecer</Text>
+            </RectButton>
+
+            <RectButton
+              style={[
+                styles.button,
+                { backgroundColor: "#FCAE76", marginLeft: 10 },
+              ]}
+              onPress={() => {}}
+            >
+              <MaterialIcons
+                name="shopping-cart"
+                size={25}
+                color="#f5f5f5"
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.buttonText}>Negociação</Text>
+            </RectButton>
+          </View>
+          <View style={styles.momentsContainer}>
+            <Text style={styles.textBold}>Momentos</Text>
+            <View style={styles.momentTab}></View>
+            <View style={styles.moments}>
+              <View style={styles.momentHeader}>
+                <Image
+                  source={require("../../assets/roberto.jpeg")}
+                  style={styles.imageMoment}
+                />
+                <Text style={styles.momentDescription}>
+                  Mauricio - 10/06/2020 - 11:00
+                </Text>
+              </View>
+              <Image
+                source={require("../../assets/parada1.png")}
+                style={styles.imageStop}
+              />
+            </View>
+          </View>
         </View>
-        <Text style={styles.description}>
-          vamos juntos desbravar este Brasil
-        </Text>
+      </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={handleNavigationToCamera}
+        >
+          <MaterialCommunityIcons
+            name="camera"
+            size={30}
+            color="#f5f5f5"
+            style={{ marginLeft: 20 }}
+          />
+
+          <Text style={styles.footerText}>Registrar Momento</Text>
+        </TouchableOpacity>
       </View>
-
-      <View style={styles.containerButtons}>
-        <RectButton style={styles.buttonMap} onPress={() => {}}>
-          <Icon name="info" size={10} />
-          <Text style={styles.buttonText}>Mapa</Text>
-        </RectButton>
-
-        <RectButton style={styles.buttonStop} onPress={() => {}}>
-          <Icon name="info" size={10} />
-          <Text style={styles.buttonText}>Paradas</Text>
-        </RectButton>
-
-        <RectButton style={styles.buttonGas} onPress={() => {}}>
-          <Icon name="info" size={10} />
-          <Text style={styles.buttonText}>Abastecer</Text>
-        </RectButton>
-
-        <RectButton style={styles.buttonDiary} onPress={() => {}}>
-          <Icon name="info" size={10} />
-          <Text style={styles.buttonText}>Diário</Text>
-        </RectButton>
-      </View>
-
-      <View style={styles.community}></View>
-
-      <View style={styles.footer}></View>
     </View>
   );
 };
@@ -114,6 +203,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 32,
     paddingTop: 20 + Constants.statusBarHeight,
+    backgroundColor: "#FFFFFF",
   },
   header: {
     flexDirection: "row",
@@ -168,61 +258,78 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
   },
   welcome: {
-    marginTop: 10,
+    marginTop: 20,
+    height: 60,
   },
   containerButtons: {
     flexWrap: "wrap",
     flexDirection: "row",
     marginTop: 30,
+    width: 330,
+    height: 180,
   },
-  buttonMap: {
+  button: {
     flexDirection: "row",
-    backgroundColor: "#2D9CDB",
-    width: 142,
-    height: 57,
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
     marginBottom: 10,
-  },
-  buttonStop: {
-    flexDirection: "row",
-    backgroundColor: "#FFBA49",
-    width: 142,
-    height: 57,
-    borderRadius: 20,
-    overflow: "hidden",
-    alignItems: "center",
-    marginLeft: 10,
-    marginBottom: 10,
-  },
-  buttonGas: {
-    flexDirection: "row",
-    backgroundColor: "#5B7488",
-    width: 142,
-    height: 57,
-    borderRadius: 20,
-    overflow: "hidden",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  buttonDiary: {
-    flexDirection: "row",
-    marginLeft: 10,
-    backgroundColor: "#FCAE76",
-    width: 142,
-    height: 57,
-    borderRadius: 20,
-    overflow: "hidden",
-    alignItems: "center",
-    marginBottom: 10,
+    width: 160,
+    height: 70,
   },
   buttonText: {
-    marginTop: 15,
+    marginLeft: 10,
     fontSize: 16,
     fontFamily: "Roboto_400Regular",
     color: "#FFFFFF",
   },
-  community: {},
-  footer: {},
+  momentsContainer: {},
+  momentTab: {},
+  moments: {},
+  momentHeader: {
+    marginTop: 5,
+    flexDirection: "row",
+    backgroundColor: "#F5F5F5",
+    height: 50,
+    width: "auto",
+  },
+  imageMoment: {
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: 30,
+    height: 30,
+    borderRadius: 100,
+    marginLeft: 10,
+  },
+  imageStop: {
+    width: "auto",
+  },
+  momentDescription: {
+    fontSize: 16,
+    fontFamily: "Roboto_400Regular",
+    alignSelf: "center",
+    marginLeft: 10,
+    color: "#5B7488",
+  },
+  moment: {},
+  footer: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#BB6BD9",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+  },
+  footerButton: {
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  footerText: {
+    fontSize: 20,
+    fontFamily: "Roboto_400Regular",
+    color: "#F5F5F5",
+    marginLeft: 10,
+  },
 });
