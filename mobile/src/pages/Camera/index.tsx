@@ -94,8 +94,7 @@ const Camera = () => {
           <TouchableOpacity style={styles.button} onPress={openGallery}>
             <MaterialCommunityIcons
               name="folder-open"
-              size={30}
-              color="#FFFFFF"
+              size={40}
               style={styles.folder}
             ></MaterialCommunityIcons>
           </TouchableOpacity>
@@ -193,11 +192,15 @@ const styles = StyleSheet.create({
   },
   gallery: {
     width: "auto",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
     height: 50,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row-reverse",
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderColor: "#4ECB79",
+    opacity: 0.8,
   },
   modalImage: {
     flex: 1,
@@ -212,6 +215,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   folder: {
-    color: "rgba(255, 255, 255, 0.8)",
+    color: "#FFFFFF",
   },
 });
