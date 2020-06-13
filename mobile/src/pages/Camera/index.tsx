@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { Camera as Cam } from "expo-camera";
+import Constants from "expo-constants";
+const { width: winWidth, height: winHeight } = Dimensions.get("window");
 
 const Camera = () => {
+  let camera = React.createRef();
   const [hasPermission, setHasPermission] = useState<Boolean>(false);
   const [type, setType] = useState(Cam.Constants.Type.back);
+  const [flash, setFlash] = useState(Cam.Constants.FlashMode.on);
 
   function handleSwitchCamera() {
     setType(
@@ -15,12 +25,15 @@ const Camera = () => {
     );
   }
 
-  function handleTakePicture() {
-    alert("Vou tirar em!!");
-  }
+  function handleTakePicture() {}
 
   function handleTurnFlash() {
-    alert("vou ligar o flash");
+    setFlash(
+      flash === Cam.Constants.FlashMode.on
+        ? Cam.Constants.FlashMode.off
+        : Cam.Constants.FlashMode.on
+    );
+    console.log(Cam.Constants.FlashMode);
   }
 
   useEffect(() => {
@@ -38,34 +51,38 @@ const Camera = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Cam style={{ flex: 1 }} type={type}>
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.button} onPress={handleTurnFlash}>
-            <MaterialIcons
-              name="flash-off"
-              size={50}
-              color="#F5F5F5"
-            ></MaterialIcons>
-          </TouchableOpacity>
+    <View style={{ flex: 1, backgroundColor: "#000" }}>
+      <Cam style={styles.cameraContariner} type={type} flashMode={flash} />
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={handleTurnFlash}>
+          <MaterialIcons
+            name={
+              flash === Cam.Constants.FlashMode.on ? "flash-on" : "flash-off"
+            }
+            size={30}
+            style={styles.icon}
+          ></MaterialIcons>
+        </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={handleTakePicture}>
-            <MaterialIcons
-              name="camera"
-              size={50}
-              color="#F5F5F5"
-            ></MaterialIcons>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button} onPress={handleSwitchCamera}>
-            <MaterialIcons
-              name="switch-camera"
-              size={50}
-              color="#F5F5F5"
-            ></MaterialIcons>
-          </TouchableOpacity>
-        </View>
-      </Cam>
+        <TouchableOpacity
+          style={[styles.button, { marginBottom: -10 }]}
+          onPress={handleTakePicture}
+        >
+          <MaterialCommunityIcons
+            name="circle-slice-8"
+            size={80}
+            style={styles.icon}
+          ></MaterialCommunityIcons>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSwitchCamera}>
+          <MaterialCommunityIcons
+            name="camera-party-mode"
+            size={30}
+            style={styles.icon}
+          ></MaterialCommunityIcons>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.buttonText}>Pressione para tirar a foto </Text>
     </View>
   );
 };
@@ -73,6 +90,12 @@ const Camera = () => {
 export default Camera;
 
 const styles = StyleSheet.create({
+  cameraContariner: {
+    flex: 1,
+    marginTop: 50 + Constants.statusBarHeight,
+    height: winHeight,
+    width: winWidth,
+  },
   container: {
     flex: 1,
     backgroundColor: "transparent",
@@ -80,14 +103,21 @@ const styles = StyleSheet.create({
     width: "auto",
     justifyContent: "space-between",
     padding: 20,
+    maxHeight: 100,
   },
   button: {
     alignSelf: "flex-end",
     alignItems: "center",
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: "Roboto_400Regular",
+    color: "#F5F5F5",
+    alignSelf: "center",
     marginBottom: 10,
-    color: "white",
+  },
+  icon: {
+    color: "rgba(255, 255, 255, 0.8)",
+    marginBottom: 10,
   },
 });
