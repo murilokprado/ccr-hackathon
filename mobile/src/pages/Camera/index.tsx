@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   StyleSheet,
@@ -6,16 +6,20 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  Modal,
+  Image,
 } from "react-native";
 import { Camera as Cam } from "expo-camera";
 import Constants from "expo-constants";
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 
 const Camera = () => {
-  let camera = React.createRef();
+  const camRef = React.createRef<Cam>();
   const [hasPermission, setHasPermission] = useState<Boolean>(false);
   const [type, setType] = useState(Cam.Constants.Type.back);
   const [flash, setFlash] = useState(Cam.Constants.FlashMode.on);
+  const [capturedPhoto, setCapturedPhoto] = useState("");
+  const [modal, setModal] = useState(false);
 
   function handleSwitchCamera() {
     setType(
@@ -25,7 +29,16 @@ const Camera = () => {
     );
   }
 
-  function handleTakePicture() {}
+  async function handleTakePicture() {
+    if (camRef) {
+      const options = { quality: 0.5, base64: true };
+      await camRef.current?.takePictureAsync(options).then((data) => {
+        setCapturedPhoto(data.uri);
+        setModal(true);
+        console.log(data.uri);
+      });
+    }
+  }
 
   function handleTurnFlash() {
     setFlash(
@@ -33,7 +46,6 @@ const Camera = () => {
         ? Cam.Constants.FlashMode.off
         : Cam.Constants.FlashMode.on
     );
-    console.log(Cam.Constants.FlashMode);
   }
 
   useEffect(() => {
@@ -52,7 +64,12 @@ const Camera = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#000" }}>
-      <Cam style={styles.cameraContariner} type={type} flashMode={flash} />
+      <Cam
+        style={styles.cameraContariner}
+        type={type}
+        flashMode={flash}
+        ref={camRef}
+      />
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={handleTurnFlash}>
           <MaterialIcons
@@ -81,6 +98,42 @@ const Camera = () => {
             style={styles.icon}
           ></MaterialCommunityIcons>
         </TouchableOpacity>
+
+        {capturedPhoto != "" && (
+          <Modal animationType="slide" transparent={false} visible={modal}>
+            <View style={{ backgroundColor: "#202020" }}>
+              <TouchableOpacity
+                style={{ margin: 10 }}
+                onPress={() => setModal(false)}
+              >
+                <MaterialCommunityIcons
+                  name="close"
+                  size={50}
+                  color="#FF0000"
+                  style={{ backgroundColor: "#202020", alignSelf: "flex-end" }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#202020",
+                padding: 20,
+              }}
+            >
+              <Image
+                style={{
+                  width: "100%",
+                  height: 300,
+                  borderRadius: 20,
+                }}
+                source={{ uri: capturedPhoto }}
+              />
+            </View>
+          </Modal>
+        )}
       </View>
       <Text style={styles.buttonText}>Pressione para tirar a foto </Text>
     </View>
