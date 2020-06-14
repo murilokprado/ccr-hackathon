@@ -79,6 +79,10 @@ const Home = () => {
     navigation.navigate("Search");
   }
 
+  function handleNavigationToMap() {
+    navigation.navigate("Map");
+  }
+
   useEffect(() => {
     async function loadLocation() {
       const { status } = await Location.requestPermissionsAsync();
@@ -136,7 +140,7 @@ const Home = () => {
           <View style={styles.containerButtons}>
             <RectButton
               style={[styles.button, { backgroundColor: "#2D9CDB" }]}
-              onPress={() => {}}
+              onPress={handleNavigationToMap}
             >
               <Feather
                 name="map"
