@@ -20,47 +20,6 @@ import TabsParadas from './TabsParadas';
 const Place = () => {
   const navigation = useNavigation();
 
-  let offset = 0;
-  const translateY = new Animated.Value(0);
-
-  const animatedEvent = Animated.event(
-    [
-      {
-        nativeEvent: {
-          translationY: translateY
-        }
-      }
-    ],
-    { useNativeDriver: true }
-  );
-
-  function onHandlerStateChange(event) {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      let opened = false;
-      const { translationY } = event.nativeEvent;
-
-      offset += translationY;
-
-      if (translationY >= 100) {
-        opened = true;
-      } else {
-        translateY.setValue(offset);
-        translateY.setOffset(0);
-        offset = 0;
-      }
-
-      Animated.timing(translateY, {
-        toValue: opened ? 380 : 0,
-        duration: 400,
-        useNativeDriver: true
-      }).start(() => {
-        offset = opened ? 380 : 0;
-        translateY.setOffset(offset);
-        translateY.setValue(0);
-      });
-    }
-  }
-
   function handleNavigationBack() {
     navigation.goBack();
   }
@@ -150,9 +109,9 @@ const Place = () => {
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
             <View style={{ paddingTop: 24 }} key={i}>
-              <View style={{ maxWidth: 100 }}>
-                <Text>Paradas</Text>
-                <TabsParadas translateY={translateY} />
+              <View>
+                <Text style={{ fontSize: 16, color: '#5B7488' }}>Paradas</Text>
+                <TabsParadas />
               </View>
             </View>
           ))}
@@ -182,9 +141,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 32,
     backgroundColor: '#FFFFFF',
     minWidth: '100%',
+    maxWidth: '100%',
     height: 450,
     position: 'absolute',
-    marginTop: 200
+    marginTop: 200,
+    flex: 1
   },
   collapse: {
     alignSelf: 'center',
