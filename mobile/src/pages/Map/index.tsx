@@ -237,7 +237,7 @@ const Map = () => {
         </RectButton>
       </View>
       <Modal {...spots} />
-      <Modal {...spots} />
+      <Modal {...spotsGas} />
     </View>
   );
 };
