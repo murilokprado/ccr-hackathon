@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Constants from "expo-constants";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import * as Location from "expo-location";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import {
@@ -10,6 +9,8 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+
+import Modal from "./Modal";
 
 const points = [
   {
@@ -35,6 +36,29 @@ const points = [
   },
 ];
 
+let stops = {
+  icon: "hotel",
+  description: "Parada",
+  visible: false,
+  stop: [
+    {
+      image_url: require("../../assets/parada1.png"),
+      km: "5",
+      stars: 4,
+    },
+    {
+      image_url: require("../../assets/parada2.png"),
+      km: "5",
+      stars: 4,
+    },
+    {
+      image_url: require("../../assets/parada3.png"),
+      km: "5",
+      stars: 4,
+    },
+  ],
+};
+
 const Map = () => {
   const navigation = useNavigation();
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
@@ -44,6 +68,11 @@ const Map = () => {
 
   function handleNavigationBack() {
     navigation.goBack();
+  }
+
+  function handleOpenModalStop() {
+    stops = { ...stops, visible: stops.visible ? false : true };
+    console.log(stops);
   }
 
   return (
@@ -140,11 +169,13 @@ const Map = () => {
             styles.button,
             { backgroundColor: "#FFBA49", alignItems: "center" },
           ]}
-          onPress={() => {}}
+          onPress={handleOpenModalStop}
         >
           <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
           <Text style={styles.buttonText}>Paradas</Text>
         </RectButton>
+
+        <Modal {...stops} />
       </View>
     </View>
   );
