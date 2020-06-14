@@ -7,17 +7,17 @@ import { Entypo as Icon } from '@expo/vector-icons';
 const paradas = [
   {
     image: require('../../assets/parada1.png'),
-    km: '5km',
+    km: '265m',
     stars: 5
   },
   {
     image: require('../../assets/parada2.png'),
-    km: '11km',
+    km: '5km',
     stars: 4
   },
   {
     image: require('../../assets/parada3.png'),
-    km: '15km',
+    km: '7km',
     stars: 3
   }
 ];
