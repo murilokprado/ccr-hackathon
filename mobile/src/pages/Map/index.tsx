@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
+import * as Location from "expo-location";
 import {
   Feather as Icon,
   FontAwesome,
@@ -59,6 +67,29 @@ let spots = {
   ],
 };
 
+let spotsGas = {
+  icon: "gas-station",
+  description: "Abastecimento",
+  visible: false,
+  stop: [
+    {
+      image_url: require("../../assets/parada1.png"),
+      km: "5",
+      stars: 4,
+    },
+    {
+      image_url: require("../../assets/parada2.png"),
+      km: "5",
+      stars: 4,
+    },
+    {
+      image_url: require("../../assets/parada3.png"),
+      km: "5",
+      stars: 4,
+    },
+  ],
+};
+
 const Map = () => {
   const navigation = useNavigation();
   const [visibleState, setVisibleState] = useState(false);
@@ -74,8 +105,34 @@ const Map = () => {
   function handleOpenModalStop() {
     spots = { ...spots, visible: spots.visible ? false : true };
     setVisibleState(spots.visible);
-    console.log(spots);
   }
+
+  function handleOpenModalStopGas() {
+    spotsGas = { ...spotsGas, visible: spotsGas.visible ? false : true };
+    setVisibleState(spotsGas.visible);
+  }
+
+  useEffect(() => {
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync();
+
+      if (status !== "granted") {
+        Alert.alert(
+          "Ops....",
+          "Precisamos de sua permissão para obter a sua localização"
+        );
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+
+      const { latitude, longitude } = location.coords;
+
+      setInitialPosition([latitude, longitude]);
+    }
+
+    loadPosition();
+  }, []);
 
   useEffect(() => {}, [visibleState]);
 
@@ -153,34 +210,33 @@ const Map = () => {
         )}
       </View>
 
-      {!visibleState && (
-        <View style={styles.footer}>
-          <RectButton
-            style={[
-              styles.button,
-              { backgroundColor: "#5B7488", alignItems: "center" },
-            ]}
-            onPress={() => {}}
-          >
-            <MaterialCommunityIcons
-              name="gas-station"
-              style={styles.buttonIcon}
-            />
-            <Text style={styles.buttonText}>Abastecer</Text>
-          </RectButton>
+      <View style={styles.footer}>
+        <RectButton
+          style={[
+            styles.button,
+            { backgroundColor: "#5B7488", alignItems: "center" },
+          ]}
+          onPress={handleOpenModalStopGas}
+        >
+          <MaterialCommunityIcons
+            name="gas-station"
+            style={styles.buttonIcon}
+          />
+          <Text style={styles.buttonText}>Abastecer</Text>
+        </RectButton>
 
-          <RectButton
-            style={[
-              styles.button,
-              { backgroundColor: "#FFBA49", alignItems: "center" },
-            ]}
-            onPress={handleOpenModalStop}
-          >
-            <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
-            <Text style={styles.buttonText}>Paradas</Text>
-          </RectButton>
-        </View>
-      )}
+        <RectButton
+          style={[
+            styles.button,
+            { backgroundColor: "#FFBA49", alignItems: "center" },
+          ]}
+          onPress={handleOpenModalStop}
+        >
+          <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
+          <Text style={styles.buttonText}>Paradas</Text>
+        </RectButton>
+      </View>
+      <Modal {...spots} />
       <Modal {...spots} />
     </View>
   );

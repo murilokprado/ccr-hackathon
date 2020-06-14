@@ -8,6 +8,9 @@ import {
   Text,
 } from "react-native";
 
+import CardsParada from "../Place/CardsParada";
+import CardsAbastecimento from "../Place/CardsAbastecimento";
+
 interface Modal {
   icon: string;
   description: string;
@@ -20,11 +23,21 @@ interface Modal {
 }
 
 const Modal = (props: Modal) => {
+  const [visibleState, setVisibleState] = useState(props.visible);
+
+  function handleCloseModal() {
+    setVisibleState(false);
+  }
+
+  useEffect(() => {
+    setVisibleState(props.visible);
+  }, [props.visible]);
+
   return (
-    <RNModal animationType="slide" transparent={true} visible={props.visible}>
+    <RNModal animationType="slide" transparent={true} visible={visibleState}>
       <View style={styles.modalImage}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleCloseModal}>
             <Icon name="arrow-left" style={styles.arrowLeft} />
           </TouchableOpacity>
           <View style={styles.info}>
@@ -34,8 +47,12 @@ const Modal = (props: Modal) => {
               color="#f5f5f5"
               style={{ marginLeft: 20 }}
             />
-            <Text>{props.description}</Text>
+            <Text style={styles.infoText}>{props.description}</Text>
           </View>
+        </View>
+        <View style={styles.spots}>
+          {props.icon === "hotel" && <CardsParada color="#FFF" />}
+          {props.icon === "gas-station" && <CardsAbastecimento color="#FFF" />}
         </View>
       </View>
     </RNModal>
@@ -53,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "rgba(0, 0, 0, .5)",
     width: "100%",
-    maxHeight: 150,
+    height: 280,
     bottom: 0,
   },
   header: {
@@ -67,5 +84,24 @@ const styles = StyleSheet.create({
   },
   info: {
     flexDirection: "row",
+    position: "absolute",
+    alignSelf: "center",
+    alignItems: "center",
+    height: 40,
+  },
+  infoText: {
+    alignItems: "center",
+    marginLeft: 10,
+    fontFamily: "Roboto_400Regular",
+    color: "#F5F5F5",
+    marginTop: 5,
+    fontSize: 15,
+  },
+  spots: {
+    zIndex: 1,
+    width: "auto",
+    position: "absolute",
+    marginTop: 30,
+    padding: 20,
   },
 });
