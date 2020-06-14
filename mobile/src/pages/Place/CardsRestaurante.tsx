@@ -10,19 +10,19 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Entypo as Icon } from '@expo/vector-icons';
 
-const abastecimentos = [
+const restaurantes = [
   {
-    image: require('../../assets/abastecimento1.png'),
+    image: require('../../assets/restaurante1.png'),
     km: '265m',
     stars: 5
   },
   {
-    image: require('../../assets/abastecimento2.png'),
+    image: require('../../assets/restaurante2.png'),
     km: '5km',
     stars: 4
   },
   {
-    image: require('../../assets/abastecimento3.png'),
+    image: require('../../assets/restaurante3.png'),
     km: '7km',
     stars: 3
   }
@@ -33,22 +33,21 @@ interface Prop {
   onClose: Function;
 }
 
-const TabsParadas = (props: Prop) => {
+const CardsRestaurante = (props: Prop) => {
   const navigation = useNavigation();
 
   function handleSpot() {
-    navigation.navigate('Spot');
-
     props.onClose();
+    navigation.navigate('Spot');
   }
 
   return (
-    <View style={{ flex: 1, maxWidth: '100%' }}>
+    <View style={{ flex: 1, maxWidth: '100%', paddingBottom: 200 }}>
       <ScrollView horizontal>
-        {abastecimentos.map((abastecimento, index) => (
+        {restaurantes.map((restaurante, index) => (
           <TouchableOpacity onPress={handleSpot} key={index}>
             <View style={styles.card}>
-              <Image style={styles.image} source={abastecimento.image} />
+              <Image style={styles.image} source={restaurante.image} />
               <View
                 style={{
                   flexDirection: 'row',
@@ -68,11 +67,11 @@ const TabsParadas = (props: Prop) => {
                     textAlign: 'center'
                   }}
                 >
-                  {abastecimento.km}
+                  {restaurante.km}
                 </Text>
               </View>
               <View style={{ flexDirection: 'row' }}>
-                {Array(abastecimento.stars)
+                {Array(restaurante.stars)
                   .fill(0)
                   .map((i, index) => (
                     <Icon
@@ -91,7 +90,7 @@ const TabsParadas = (props: Prop) => {
   );
 };
 
-export default TabsParadas;
+export default CardsRestaurante;
 
 const styles = StyleSheet.create({
   card: {

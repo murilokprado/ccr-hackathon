@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Place from './pages/Place';
 import Map from './pages/Map';
 import Spot from './pages/Spot';
+import Building from './pages/Building';
 
 const AppStack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const Routes = () => {
         <AppStack.Screen name="Place" component={Place} />
         <AppStack.Screen name="Map" component={Map} />
         <AppStack.Screen name="Spot" component={Spot} />
+        <AppStack.Screen name="Building" component={Building} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

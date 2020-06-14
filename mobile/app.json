@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Meu Amigo Caminhoneiro",
-    "slug": "meu-amigo-caminhoneiro",
+    "name": "Caminhão Amigo",
+    "slug": "caminhao-amigo",
     "platforms": [
       "ios",
       "android",
@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "",
+    "description": "Source code from mobile app \"Caminhão Amigo\", team 265 of CCR Hackaton.",
     "githubUrl": "https://github.com/murilokprado/ccr-hackathon/tree/master/mobile"
   }
 }

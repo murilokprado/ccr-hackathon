@@ -17,6 +17,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import CardsParada from './CardsParada';
 import CardsAbastecimento from './CardsAbastecimento';
+import CardsRestaurante from './CardsRestaurante';
 
 const Place = () => {
   const navigation = useNavigation();
@@ -124,6 +125,15 @@ const Place = () => {
               Abastecimento
             </Text>
             <CardsAbastecimento />
+          </View>
+
+          <View style={{ paddingTop: 24 }}>
+            <Text
+              style={{ fontSize: 26, color: '#5B7488', fontWeight: 'bold' }}
+            >
+              Restaurantes
+            </Text>
+            <CardsRestaurante />
           </View>
         </View>
       </ScrollView>
