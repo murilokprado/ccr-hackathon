@@ -24,7 +24,7 @@ const abastecimentos = [
 
 const TabsParadas = () => {
   return (
-    <View style={{ flex: 1, maxWidth: '100%' }}>
+    <View style={{ flex: 1, maxWidth: '100%', paddingBottom: 200 }}>
       <ScrollView horizontal>
         {abastecimentos.map((abastecimento, index) => (
           <View style={styles.card} key={index}>

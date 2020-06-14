@@ -97,8 +97,8 @@ const Place = () => {
               <Text
                 style={{
                   color: '#fff',
-                  marginHorizontal: 'auto',
-                  marginVertical: 'auto',
+                  marginLeft: 18,
+                  marginVertical: 5,
                   fontSize: 28,
                   fontWeight: 'bold'
                 }}

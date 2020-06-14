@@ -17,6 +17,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import CardsAmigos from './CardsAmigos';
 import Comentarios from './Comentarios';
+import Momentos from './Momentos';
 
 const Spot = () => {
   const navigation = useNavigation();
@@ -48,21 +49,35 @@ const Spot = () => {
             backgroundColor: 'rgba(0, 0, 0, 0.4)',
             flex: 1,
             minWidth: '100%',
+            justifyContent: 'center',
             marginTop: 50
           }}
         >
-          <Text
-            style={{
-              color: '#fff',
-              fontWeight: 'bold',
-              paddingVertical: 8,
-              minWidth: '100%',
-              textAlign: 'center'
-            }}
-          >
-            Joinville
-          </Text>
-          <Icon name="location-pin" size={20} style={{ color: '#fff' }} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: 'bold',
+                paddingVertical: 8,
+                textAlign: 'center'
+              }}
+            >
+              Joinville
+            </Text>
+            <Icon name="location-pin" size={20} style={{ color: '#fff' }} />
+          </View>
+          <View style={{ marginLeft: 16 }}>
+            <Text style={{ color: '#fff' }}>Parada dois Amores</Text>
+            <View style={{ flexDirection: 'row' }}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Icon
+                  key={i}
+                  name="star"
+                  style={{ color: '#F2C94C', fontSize: 16 }}
+                />
+              ))}
+            </View>
+          </View>
         </View>
       </View>
 
@@ -97,8 +112,8 @@ const Spot = () => {
               <Text
                 style={{
                   color: '#fff',
-                  marginHorizontal: 'auto',
-                  marginVertical: 'auto',
+                  marginLeft: 18,
+                  marginVertical: 5,
                   fontSize: 28,
                   fontWeight: 'bold'
                 }}
@@ -184,6 +199,7 @@ const Spot = () => {
             <View
               style={{
                 paddingTop: 24,
+                paddingBottom: 16,
                 flexDirection: 'row',
                 alignItems: 'center'
               }}
@@ -209,7 +225,7 @@ const Spot = () => {
                   marginRight: 4
                 }}
               >
-                4
+                3
               </Text>
               <Text style={{ fontSize: 16, color: '#5B7488' }}>
                 amigos aqui
@@ -222,6 +238,7 @@ const Spot = () => {
             <View
               style={{
                 paddingTop: 24,
+                paddingBottom: 16,
                 flexDirection: 'row',
                 alignItems: 'center'
               }}
@@ -238,6 +255,29 @@ const Spot = () => {
               </Text>
             </View>
             <Comentarios />
+          </View>
+
+          <View>
+            <View
+              style={{
+                paddingTop: 24,
+                paddingBottom: 16,
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: '#5B7488',
+                  fontWeight: 'bold',
+                  marginRight: 4
+                }}
+              >
+                Momentos
+              </Text>
+            </View>
+            <Momentos />
           </View>
         </View>
       </ScrollView>
@@ -269,8 +309,7 @@ const styles = StyleSheet.create({
     height: 650,
     position: 'absolute',
     marginTop: 200,
-    flex: 1,
-    paddingBottom: 200
+    flex: 1
   },
   collapse: {
     alignSelf: 'center',

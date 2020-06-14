@@ -1,5 +1,5 @@
 import React from 'react';
-import { Entypo as Icon } from '@expo/vector-icons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { StyleSheet, View, Text, Image, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';

@@ -84,7 +84,7 @@ const Home = () => {
   }
 
   function handleNavigationToMap() {
-    navigation.navigate("Map");
+    navigation.navigate('Map');
   }
 
   useEffect(() => {
@@ -142,15 +142,7 @@ const Home = () => {
           />
 
           <View style={styles.containerButtons}>
-            <RectButton
-<<<<<<< Updated upstream
-              style={[styles.button, { backgroundColor: "#2D9CDB" }]}
-              onPress={handleNavigationToMap}
-=======
-              style={[styles.button, { backgroundColor: '#2D9CDB' }]}
-              onPress={() => {}}
->>>>>>> Stashed changes
-            >
+            <RectButton style={[styles.button, { backgroundColor: '#2D9CDB' }]}>
               <Feather
                 name="map"
                 size={25}

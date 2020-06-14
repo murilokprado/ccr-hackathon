@@ -6,46 +6,46 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
-const comentarios = [
+const momentos = [
   {
     userName: 'Amarildo Jr.',
     userImage: require('../../assets/caminhoneiro1.png'),
     dateTime: '12/06/2020 - 11:00',
-    comment:
-      '‘Lugar com área de descanso, chuveiro limpo, restaurante com um bom preço. Vale muito’',
+    photo: require('../../assets/parada1.png'),
     whatsapp: '5547999999999'
   },
   {
     userName: 'Souza',
     userImage: require('../../assets/caminhoneiro2.png'),
     dateTime: '11/06/2020 - 03:07',
-    comment:
-      '‘Gostei muito. A segurança no local impressionou. Valor da parada é R$ 10,00 por dia’.',
+    photo: require('../../assets/parada2.png'),
+
     whatsapp: '5547999999999'
   }
 ];
 
-const Comentarios = () => {
+const Momentos = () => {
   return (
     <View
       style={{
         flex: 1,
         maxWidth: '100%',
-        minWidth: '100%'
+        minWidth: '100%',
+        paddingBottom: 200
       }}
     >
-      {comentarios.map((comentario, index) => (
+      {momentos.map((momento, index) => (
         <View style={{ paddingBottom: 32 }} key={index}>
           <View
             style={{ backgroundColor: '#E2E9EE', padding: 8, borderRadius: 8 }}
           >
             <View style={styles.header}>
               <RectButton style={styles.userImage}>
-                <Image source={comentario.userImage} style={styles.userImage} />
+                <Image source={momento.userImage} style={styles.userImage} />
               </RectButton>
-              <Text style={styles.description}>{comentario.dateTime}</Text>
+              <Text style={styles.description}>{momento.dateTime}</Text>
             </View>
-            <Text style={styles.content}>{comentario.comment}</Text>
+            <Image source={momento.photo} style={styles.imageStop} />
           </View>
           <View style={styles.actions}>
             <View style={styles.action}>
@@ -70,7 +70,7 @@ const Comentarios = () => {
   );
 };
 
-export default Comentarios;
+export default Momentos;
 
 const styles = StyleSheet.create({
   card: {
@@ -118,5 +118,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  icon: { fontSize: 32, color: '#5B7488', marginRight: 4 }
+  icon: { fontSize: 32, color: '#5B7488', marginRight: 4 },
+  imageStop: {
+    width: 'auto',
+    height: 200
+  }
 });
