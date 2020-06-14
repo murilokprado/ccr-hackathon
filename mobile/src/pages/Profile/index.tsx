@@ -30,29 +30,21 @@ interface Post {
 
 const posts = [
   {
-    userName: "Amarildo Jr.",
-    userImage: require("../../assets/caminhoneiro1.png"),
     dateTime: "12/06/2020 - 11:00",
     photo: require("../../assets/parada1.png"),
     whatsapp: "5547999999999",
   },
   {
-    userName: "Amarildo Jr.",
-    userImage: require("../../assets/caminhoneiro1.png"),
     dateTime: "11/06/2020 - 08:32",
     photo: require("../../assets/parada2.png"),
     whatsapp: "5547999999999",
   },
   {
-    userName: "Amarildo Jr.",
-    userImage: require("../../assets/caminhoneiro1.png"),
     dateTime: "09/06/2020 - 10:10",
     photo: require("../../assets/parada3.png"),
     whatsapp: "5547999999999",
   },
   {
-    userName: "Amarildo Jr.",
-    userImage: require("../../assets/caminhoneiro1.png"),
     dateTime: "06/06/2020 - 23:10",
     photo: require("../../assets/parada4.png"),
     whatsapp: "5547999999999",
@@ -153,9 +145,13 @@ const Profile = () => {
             Momentos de {routeParams.props.userName}
           </Text>
           <View style={styles.moment}>
-            {posts.map((post, index) => (
-              <Posts key={index} {...post} />
-            ))}
+            {posts.map(
+              (post, index) => (
+                (post.userName = routeParams.props.userName),
+                (post.userImage = routeParams.props.userImage),
+                (<Posts key={index} {...post} />)
+              )
+            )}
           </View>
           <View>
             <Text style={styles.statements}>Depoimentos</Text>
