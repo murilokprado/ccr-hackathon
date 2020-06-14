@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import {
   Feather as Icon,
@@ -36,7 +36,7 @@ const points = [
   },
 ];
 
-let stops = {
+let spots = {
   icon: "hotel",
   description: "Parada",
   visible: false,
@@ -61,6 +61,7 @@ let stops = {
 
 const Map = () => {
   const navigation = useNavigation();
+  const [visibleState, setVisibleState] = useState(false);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     -26.298754,
     -48.883742,
@@ -71,9 +72,12 @@ const Map = () => {
   }
 
   function handleOpenModalStop() {
-    stops = { ...stops, visible: stops.visible ? false : true };
-    console.log(stops);
+    spots = { ...spots, visible: spots.visible ? false : true };
+    setVisibleState(spots.visible);
+    console.log(spots);
   }
+
+  useEffect(() => {}, [visibleState]);
 
   return (
     <View style={styles.container}>
@@ -149,34 +153,35 @@ const Map = () => {
         )}
       </View>
 
-      <View style={styles.footer}>
-        <RectButton
-          style={[
-            styles.button,
-            { backgroundColor: "#5B7488", alignItems: "center" },
-          ]}
-          onPress={() => {}}
-        >
-          <MaterialCommunityIcons
-            name="gas-station"
-            style={styles.buttonIcon}
-          />
-          <Text style={styles.buttonText}>Abastecer</Text>
-        </RectButton>
+      {!visibleState && (
+        <View style={styles.footer}>
+          <RectButton
+            style={[
+              styles.button,
+              { backgroundColor: "#5B7488", alignItems: "center" },
+            ]}
+            onPress={() => {}}
+          >
+            <MaterialCommunityIcons
+              name="gas-station"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Abastecer</Text>
+          </RectButton>
 
-        <RectButton
-          style={[
-            styles.button,
-            { backgroundColor: "#FFBA49", alignItems: "center" },
-          ]}
-          onPress={handleOpenModalStop}
-        >
-          <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
-          <Text style={styles.buttonText}>Paradas</Text>
-        </RectButton>
-
-        <Modal {...stops} />
-      </View>
+          <RectButton
+            style={[
+              styles.button,
+              { backgroundColor: "#FFBA49", alignItems: "center" },
+            ]}
+            onPress={handleOpenModalStop}
+          >
+            <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
+            <Text style={styles.buttonText}>Paradas</Text>
+          </RectButton>
+        </View>
+      )}
+      <Modal {...spots} />
     </View>
   );
 };
