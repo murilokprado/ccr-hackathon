@@ -56,15 +56,16 @@ const Post = (props: Post) => {
           <Icon name="comment" style={styles.icon} />
           <Text style={{ color: "#5B7488" }}>Comentar</Text>
         </View>
-        <View style={styles.action}>
-          <RectButton
-            style={styles.icon}
-            onPress={() => handleWhatsapp(props.whatsapp)}
-          >
+        <RectButton
+          style={styles.action}
+          onPress={() => handleWhatsapp(props.whatsapp)}
+        >
+          <View style={styles.action}>
             <Icon name="whatsapp" style={styles.icon} />
-          </RectButton>
-          <Text style={{ color: "#5B7488" }}>Compartilhar</Text>
-        </View>
+
+            <Text style={{ color: "#5B7488" }}>Compartilhar</Text>
+          </View>
+        </RectButton>
       </View>
     </View>
   );

@@ -13,6 +13,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { RectButton } from "react-native-gesture-handler";
 
+import Statement from "./Statement";
+
 interface Params {
   props: Post;
 }
@@ -24,6 +26,51 @@ interface Post {
   photo: string;
   whatsapp: string;
 }
+
+const statements = [
+  {
+    userName: "Cleber Santana",
+    userImage: require("../../assets/caminhoneiro2.png"),
+    dateTime: "22/06/2020 - 11:56",
+    description:
+      "Esse é um companheiro de muitos anos. Gosto muito de estar com ele e de trocar histórias dessa vida.",
+  },
+  {
+    userName: "José Antunes",
+    userImage: require("../../assets/caminhoneiro3.png"),
+    dateTime: "19/06/2020 - 17:36",
+    description:
+      "Amigão para a vida toda. Já passamos por muita coisa juntos, mas não tem quem deixe ele para baixo.",
+  },
+  {
+    userName: "Cleber Santana",
+    userImage: require("../../assets/caminhoneiro2.png"),
+    dateTime: "22/06/2020 - 11:56",
+    description:
+      "Esse é um companheiro de muitos anos. Gosto muito de estar com ele e de trocar histórias dessa vida.",
+  },
+  {
+    userName: "José Antunes",
+    userImage: require("../../assets/caminhoneiro3.png"),
+    dateTime: "19/06/2020 - 17:36",
+    description:
+      "Amigão para a vida toda. Já passamos por muita coisa juntos, mas não tem quem deixe ele para baixo.",
+  },
+  {
+    userName: "Cleber Santana",
+    userImage: require("../../assets/caminhoneiro2.png"),
+    dateTime: "22/06/2020 - 11:56",
+    description:
+      "Esse é um companheiro de muitos anos. Gosto muito de estar com ele e de trocar histórias dessa vida.",
+  },
+  {
+    userName: "José Antunes",
+    userImage: require("../../assets/caminhoneiro3.png"),
+    dateTime: "19/06/2020 - 17:36",
+    description:
+      "Amigão para a vida toda. Já passamos por muita coisa juntos, mas não tem quem deixe ele para baixo.",
+  },
+];
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -56,7 +103,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
       </ImageBackground>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={true}>
         <View style={styles.information}>
           <View style={styles.collapse} />
           <View style={styles.headerInformation}>
@@ -74,6 +121,12 @@ const Profile = () => {
               Momentos de {routeParams.props.userName}
             </Text>
           </View>
+          <View>
+            <Text style={styles.moments}>Depoimentos</Text>
+            {statements.map((statement, index) => (
+              <Statement key={index} {...statement} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -86,6 +139,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#FFFFFF",
   },
   imageBackground: {
     width: "auto",
@@ -104,7 +158,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 32,
     backgroundColor: "#FFFFFF",
     width: "auto",
-    height: 450,
+    maxHeight: 450,
   },
   collapse: {
     alignSelf: "center",

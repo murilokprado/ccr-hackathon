@@ -61,7 +61,7 @@ const posts = [
   },
 ];
 
-const Login = () => {
+const Home = () => {
   const navigation = useNavigation();
 
   const [city, setCity] = useState("");
@@ -220,7 +220,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -310,7 +310,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     color: "#FFFFFF",
   },
-
   footer: {
     width: "100%",
     height: 50,
