@@ -110,7 +110,11 @@ const Place = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
             <View style={{ paddingTop: 24 }} key={i}>
               <View>
-                <Text style={{ fontSize: 16, color: '#5B7488' }}>Paradas</Text>
+                <Text
+                  style={{ fontSize: 26, color: '#5B7488', fontWeight: 'bold' }}
+                >
+                  Paradas
+                </Text>
                 <TabsParadas />
               </View>
             </View>
