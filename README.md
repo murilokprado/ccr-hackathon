@@ -2,9 +2,9 @@
 
 ![](/title-hackathon.png)
 
-## Running on device :iphone:
+## Rodando no seu dispositivo móvel :iphone:
 
-Faça do download do expo client
+Faça o download do expo client
 
 - [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR)
 - [App Store](https://apps.apple.com/br/app/expo-client/id982107779)
