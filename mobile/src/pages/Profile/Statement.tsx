@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     height: 140,
     width: 350,
     alignSelf: "center",
+    borderRadius: 5,
   },
   moments: {
     paddingTop: 5,

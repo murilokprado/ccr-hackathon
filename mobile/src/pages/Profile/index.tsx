@@ -103,7 +103,8 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
       </ImageBackground>
-      <ScrollView showsVerticalScrollIndicator={true}>
+
+      <ScrollView style={styles.scrollView}>
         <View style={styles.information}>
           <View style={styles.collapse} />
           <View style={styles.headerInformation}>
@@ -138,6 +139,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "absolute",
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#FFFFFF",
   },
@@ -153,12 +155,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  scrollView: {},
   information: {
+    marginTop: 120,
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     backgroundColor: "#FFFFFF",
-    width: "auto",
-    maxHeight: 450,
+    minWidth: "100%",
+    height: 700,
   },
   collapse: {
     alignSelf: "center",
