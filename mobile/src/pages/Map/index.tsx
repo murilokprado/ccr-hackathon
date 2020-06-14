@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  Modal as RNModal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
@@ -252,6 +253,66 @@ const Map = () => {
       )}
       <Modal {...spots} onClose={handleCloseModalStop} />
       <Modal {...spotsGas} onClose={handleCloseModalStopGas} />
+
+      <RNModal animationType="slide" transparent={true} visible={true}>
+        <View style={styles.modalImage}>
+          <View style={styles.alertContainer}>
+            <View style={styles.alert}>
+              <Image
+                style={styles.alertImage}
+                source={require("../../assets/alert.png")}
+              />
+            </View>
+          </View>
+          <View style={styles.textAlertContainer}>
+            <Text style={styles.textAlert}>Emergência</Text>
+          </View>
+          <View style={styles.descriptionAlertContainer}>
+            <Text style={styles.descriptionAlert}>
+              Estamos alertando a comunidade sobre seu pedido de ajuda. Enviamos
+              seu whatsApp e sua localização para facilitar o contato.
+            </Text>
+          </View>
+          <View style={styles.buttonAlertContainer}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#FFF",
+              }}
+              onPress={() => {}}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: "Roboto_400Regular",
+                  color: "#5B7488",
+                }}
+              >
+                Cancelar
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#80A1C1",
+                borderRadius: 12,
+                height: 51,
+                width: "70%",
+              }}
+              onPress={() => {}}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "Roboto_400Regular",
+                  color: "#FFF",
+                  textAlign: "center",
+                }}
+              >
+                Ver caminhoneiros próximos
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </RNModal>
     </View>
   );
 };
@@ -367,5 +428,71 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#f5f5f5",
     marginLeft: 20,
+  },
+  modalImage: {
+    flex: 1,
+    position: "absolute",
+    flexDirection: "row",
+    alignContent: "flex-end",
+    justifyContent: "space-between",
+    backgroundColor: "#FFF",
+    width: "100%",
+    height: "40%",
+    bottom: 0,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+  },
+  alertContainer: {
+    width: "100%",
+  },
+  alert: {
+    marginTop: -50,
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+    backgroundColor: "#ccc",
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  alertImage: {
+    alignSelf: "center",
+  },
+  textAlertContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    alignSelf: "center",
+    width: "100%",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  textAlert: {
+    fontSize: 24,
+    fontFamily: "Roboto_700Bold",
+    color: "#5B7488",
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  descriptionAlertContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    alignSelf: "center",
+    width: "100%",
+    alignItems: "center",
+    textAlign: "center",
+    padding: 20,
+  },
+  descriptionAlert: {
+    fontSize: 16,
+    fontFamily: "Roboto_400Regular",
+    color: "#5B7488",
+    alignSelf: "center",
+  },
+  buttonAlertContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    bottom: 0,
+    padding: 20,
   },
 });
