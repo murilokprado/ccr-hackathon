@@ -1,7 +1,13 @@
 import React from "react";
-
-import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
-
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Entypo as Icon } from "@expo/vector-icons";
 
 const abastecimentos = [
@@ -24,50 +30,61 @@ const abastecimentos = [
 
 interface Prop {
   color: string;
+  onClose: Function;
 }
 
 const TabsParadas = (props: Prop) => {
+  const navigation = useNavigation();
+
+  function handleSpot() {
+    navigation.navigate("Spot");
+
+    props.onClose();
+  }
+
   return (
     <View style={{ flex: 1, maxWidth: "100%", paddingBottom: 200 }}>
       <ScrollView horizontal>
         {abastecimentos.map((abastecimento, index) => (
-          <View style={styles.card} key={index}>
-            <Image style={styles.image} source={abastecimento.image} />
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Icon
-                name="location-pin"
-                size={20}
-                style={{ color: `${props.color ? props.color : "#5B7488"}` }}
-              />
-              <Text
+          <TouchableOpacity onPress={handleSpot} key={index}>
+            <View style={styles.card}>
+              <Image style={styles.image} source={abastecimento.image} />
+              <View
                 style={{
-                  fontSize: 14,
-                  color: `${props.color ? props.color : "#5B7488"}`,
-                  textAlign: "center",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                {abastecimento.km}
-              </Text>
+                <Icon
+                  name="location-pin"
+                  size={20}
+                  style={{ color: `${props.color ? props.color : "#5B7488"}` }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: `${props.color ? props.color : "#5B7488"}`,
+                    textAlign: "center",
+                  }}
+                >
+                  {abastecimento.km}
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                {Array(abastecimento.stars)
+                  .fill(0)
+                  .map((i, index) => (
+                    <Icon
+                      key={index}
+                      name="star"
+                      size={20}
+                      style={{ color: "#F2C94C" }}
+                    />
+                  ))}
+              </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
-              {Array(abastecimento.stars)
-                .fill(0)
-                .map((i, index) => (
-                  <Icon
-                    key={index}
-                    name="star"
-                    size={20}
-                    style={{ color: "#F2C94C" }}
-                  />
-                ))}
-            </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

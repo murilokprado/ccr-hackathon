@@ -20,12 +20,14 @@ interface Modal {
     km: string;
     stars: number;
   }[];
+  onClose: Function;
 }
 
 const Modal = (props: Modal) => {
   const [visibleState, setVisibleState] = useState(props.visible);
 
   function handleCloseModal() {
+    props.onClose();
     setVisibleState(false);
   }
 
@@ -51,8 +53,12 @@ const Modal = (props: Modal) => {
           </View>
         </View>
         <View style={styles.spots}>
-          {props.icon === "hotel" && <CardsParada color="#FFF" />}
-          {props.icon === "gas-station" && <CardsAbastecimento color="#FFF" />}
+          {props.icon === "hotel" && (
+            <CardsParada color="#FFF" onClose={handleCloseModal} />
+          )}
+          {props.icon === "gas-station" && (
+            <CardsAbastecimento onClose={handleCloseModal} color="#FFF" />
+          )}
         </View>
       </View>
     </RNModal>

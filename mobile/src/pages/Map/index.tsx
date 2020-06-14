@@ -93,6 +93,7 @@ let spotsGas = {
 const Map = () => {
   const navigation = useNavigation();
   const [visibleState, setVisibleState] = useState(false);
+  const [visibleStateGas, setVisibleStateGas] = useState(false);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     -26.298754,
     -48.883742,
@@ -103,13 +104,23 @@ const Map = () => {
   }
 
   function handleOpenModalStop() {
-    spots = { ...spots, visible: spots.visible ? false : true };
+    spots = { ...spots, visible: true };
     setVisibleState(spots.visible);
   }
 
   function handleOpenModalStopGas() {
-    spotsGas = { ...spotsGas, visible: spotsGas.visible ? false : true };
-    setVisibleState(spotsGas.visible);
+    spotsGas = { ...spotsGas, visible: true };
+    setVisibleStateGas(spotsGas.visible);
+  }
+
+  function handleCloseModalStop() {
+    spots = { ...spots, visible: false };
+    setVisibleState(spots.visible);
+  }
+
+  function handleCloseModalStopGas() {
+    spotsGas = { ...spotsGas, visible: false };
+    setVisibleStateGas(spots.visible);
   }
 
   useEffect(() => {
@@ -135,6 +146,7 @@ const Map = () => {
   }, []);
 
   useEffect(() => {}, [visibleState]);
+  useEffect(() => {}, [visibleStateGas]);
 
   return (
     <View style={styles.container}>
@@ -210,34 +222,36 @@ const Map = () => {
         )}
       </View>
 
-      <View style={styles.footer}>
-        <RectButton
-          style={[
-            styles.button,
-            { backgroundColor: "#5B7488", alignItems: "center" },
-          ]}
-          onPress={handleOpenModalStopGas}
-        >
-          <MaterialCommunityIcons
-            name="gas-station"
-            style={styles.buttonIcon}
-          />
-          <Text style={styles.buttonText}>Abastecer</Text>
-        </RectButton>
+      {(!visibleState || !visibleStateGas) && (
+        <View style={styles.footer}>
+          <RectButton
+            style={[
+              styles.button,
+              { backgroundColor: "#5B7488", alignItems: "center" },
+            ]}
+            onPress={handleOpenModalStopGas}
+          >
+            <MaterialCommunityIcons
+              name="gas-station"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Abastecer</Text>
+          </RectButton>
 
-        <RectButton
-          style={[
-            styles.button,
-            { backgroundColor: "#FFBA49", alignItems: "center" },
-          ]}
-          onPress={handleOpenModalStop}
-        >
-          <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
-          <Text style={styles.buttonText}>Paradas</Text>
-        </RectButton>
-      </View>
-      <Modal {...spots} />
-      <Modal {...spotsGas} />
+          <RectButton
+            style={[
+              styles.button,
+              { backgroundColor: "#FFBA49", alignItems: "center" },
+            ]}
+            onPress={handleOpenModalStop}
+          >
+            <MaterialCommunityIcons name="hotel" style={styles.buttonIcon} />
+            <Text style={styles.buttonText}>Paradas</Text>
+          </RectButton>
+        </View>
+      )}
+      <Modal {...spots} onClose={handleCloseModalStop} />
+      <Modal {...spotsGas} onClose={handleCloseModalStopGas} />
     </View>
   );
 };
