@@ -27,7 +27,12 @@ const Modal = (props: Modal) => {
         visible={props.visible}
       >
         <View style={{ backgroundColor: "#202020" }}>
-          <TouchableOpacity style={{ margin: 10 }} onPress={() => {}}>
+          <TouchableOpacity
+            style={{ margin: 10 }}
+            onPress={() => {
+              !props.visible;
+            }}
+          >
             <MaterialCommunityIcons
               name="close"
               size={50}
@@ -45,11 +50,11 @@ export default Modal;
 
 const styles = StyleSheet.create({
   modalImage: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#202020",
     padding: 20,
+    bottom: 0,
+    width: "auto",
+    height: 50,
   },
   image: {
     width: "100%",
