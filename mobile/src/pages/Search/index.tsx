@@ -13,6 +13,10 @@ const Search = () => {
     navigation.goBack();
   }
 
+  function handleClickImage() {
+    navigation.navigate('Place');
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       <View style={styles.header}>
@@ -40,10 +44,12 @@ const Search = () => {
         <Text style={{ fontSize: 26, color: '#5B7488', marginBottom: 16 }}>
           Resultados
         </Text>
-        <Image
-          source={require('../../assets/joinville.png')}
-          style={styles.contentImage}
-        />
+        <View onTouchStart={handleClickImage}>
+          <Image
+            source={require('../../assets/joinville.png')}
+            style={styles.contentImage}
+          />
+        </View>
         <View style={styles.description}>
           <Text style={{ fontSize: 16, color: '#5B7488', fontWeight: 'bold' }}>
             Joinville
