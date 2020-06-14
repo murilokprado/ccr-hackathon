@@ -13,6 +13,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { RectButton } from "react-native-gesture-handler";
 
+import Posts from "../Home/Post";
 import Statement from "./Statement";
 
 interface Params {
@@ -26,6 +27,37 @@ interface Post {
   photo: string;
   whatsapp: string;
 }
+
+const posts = [
+  {
+    userName: "Amarildo Jr.",
+    userImage: require("../../assets/caminhoneiro1.png"),
+    dateTime: "12/06/2020 - 11:00",
+    photo: require("../../assets/parada1.png"),
+    whatsapp: "5547999999999",
+  },
+  {
+    userName: "Amarildo Jr.",
+    userImage: require("../../assets/caminhoneiro1.png"),
+    dateTime: "11/06/2020 - 08:32",
+    photo: require("../../assets/parada2.png"),
+    whatsapp: "5547999999999",
+  },
+  {
+    userName: "Amarildo Jr.",
+    userImage: require("../../assets/caminhoneiro1.png"),
+    dateTime: "09/06/2020 - 10:10",
+    photo: require("../../assets/parada3.png"),
+    whatsapp: "5547999999999",
+  },
+  {
+    userName: "Amarildo Jr.",
+    userImage: require("../../assets/caminhoneiro1.png"),
+    dateTime: "06/06/2020 - 23:10",
+    photo: require("../../assets/parada4.png"),
+    whatsapp: "5547999999999",
+  },
+];
 
 const statements = [
   {
@@ -104,32 +136,40 @@ const Profile = () => {
         </View>
       </ImageBackground>
 
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.information}>
-          <View style={styles.collapse} />
-          <View style={styles.headerInformation}>
-            <RectButton style={styles.button} onPress={handleWhatsapp}>
-              <MaterialCommunityIcons
-                name="whatsapp"
-                size={30}
-                style={styles.whatsapp}
-              />
-              <Text style={styles.buttonText}>Mensagem no Whatsapp</Text>
-            </RectButton>
+      <View style={styles.information}>
+        <View style={styles.collapse} />
+        <View style={styles.headerInformation}>
+          <RectButton style={styles.button} onPress={handleWhatsapp}>
+            <MaterialCommunityIcons
+              name="whatsapp"
+              size={30}
+              style={styles.whatsapp}
+            />
+            <Text style={styles.buttonText}>Mensagem no Whatsapp</Text>
+          </RectButton>
+        </View>
+        <ScrollView style={styles.scrollView}>
+          <Text style={styles.moments}>
+            Momentos de {routeParams.props.userName}
+          </Text>
+          <View style={styles.moment}>
+            {posts.map((post, index) => (
+              <Posts key={index} {...post} />
+            ))}
           </View>
           <View>
-            <Text style={styles.moments}>
-              Momentos de {routeParams.props.userName}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.moments}>Depoimentos</Text>
+            <Text style={styles.statements}>Depoimentos</Text>
             {statements.map((statement, index) => (
               <Statement key={index} {...statement} />
             ))}
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => {}}>
+          <Text style={styles.footerText}>Dar depoimento</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -139,7 +179,6 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: "absolute",
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#FFFFFF",
   },
@@ -155,7 +194,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  scrollView: {},
+  scrollView: {
+    marginTop: 10,
+    marginBottom: 70,
+  },
   information: {
     marginTop: 120,
     borderTopLeftRadius: 32,
@@ -201,10 +243,38 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginLeft: 15,
   },
+  moment: {
+    padding: 20,
+  },
   moments: {
     padding: 15,
     color: "#80A1C1",
     fontSize: 16,
     fontFamily: "Roboto_700Bold",
+  },
+  statements: {
+    padding: 15,
+    color: "#80A1C1",
+    fontSize: 16,
+    fontFamily: "Roboto_700Bold",
+  },
+  footer: {
+    width: "100%",
+    height: 50,
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "#80A1C1",
+  },
+  footerButton: {
+    height: 52,
+    borderRadius: 20,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerText: {
+    fontSize: 20,
+    fontFamily: "Roboto_700Bold",
+    color: "#F5F5F5",
   },
 });

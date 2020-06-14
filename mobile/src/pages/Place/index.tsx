@@ -1,9 +1,9 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import Constants from 'expo-constants';
-import { Animated } from 'react-native';
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import Constants from "expo-constants";
+import { Animated } from "react-native";
 
-import { Entypo as Icon, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo as Icon, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
   StyleSheet,
@@ -11,11 +11,11 @@ import {
   Text,
   Image,
   Button,
-  TouchableOpacity
-} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+  TouchableOpacity,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
-import TabsParadas from './TabsParadas';
+import TabsParadas from "./TabsParadas";
 
 const Place = () => {
   const navigation = useNavigation();
@@ -25,43 +25,43 @@ const Place = () => {
   }
 
   function handleClickButton() {
-    console.log('handleClickButton');
+    console.log("handleClickButton");
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+    <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <Image
-        source={require('../../assets/joinville.png')}
+        source={require("../../assets/joinville.png")}
         style={styles.image}
       />
       <View style={styles.header}>
         <MaterialCommunityIcons
           name="arrow-left"
           size={25}
-          style={{ color: '#fff', paddingLeft: 16, alignSelf: 'flex-start' }}
+          style={{ color: "#fff", paddingLeft: 16, alignSelf: "flex-start" }}
           onPress={handleNavigationBack}
         />
         <View
           style={{
-            flexDirection: 'row',
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: "row",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
             flex: 1,
-            minWidth: '100%',
-            marginTop: 50
+            minWidth: "100%",
+            marginTop: 50,
           }}
         >
           <Text
             style={{
-              color: '#fff',
-              fontWeight: 'bold',
+              color: "#fff",
+              fontWeight: "bold",
               paddingVertical: 8,
-              minWidth: '100%',
-              textAlign: 'center'
+              minWidth: "100%",
+              textAlign: "center",
             }}
           >
             Joinville
           </Text>
-          <Icon name="location-pin" size={20} style={{ color: '#fff' }} />
+          <Icon name="location-pin" size={20} style={{ color: "#fff" }} />
         </View>
       </View>
 
@@ -70,18 +70,18 @@ const Place = () => {
         <View style={{ padding: 24 }}>
           <View
             style={{
-              backgroundColor: '#E2E9EE',
+              backgroundColor: "#E2E9EE",
               padding: 16,
-              flexDirection: 'row',
-              alignContent: 'stretch',
-              justifyContent: 'space-between'
+              flexDirection: "row",
+              alignContent: "stretch",
+              justifyContent: "space-between",
             }}
           >
-            <View style={{ justifyContent: 'space-between' }}>
-              <Text style={{ color: '#5B7488', fontWeight: 'bold' }}>
+            <View style={{ justifyContent: "space-between" }}>
+              <Text style={{ color: "#5B7488", fontWeight: "bold" }}>
                 Registrar um momento
               </Text>
-              <Text style={{ color: '#5B7488' }}>
+              <Text style={{ color: "#5B7488" }}>
                 Compartilhe com a comunidade
               </Text>
             </View>
@@ -90,16 +90,16 @@ const Place = () => {
                 width: 50,
                 height: 50,
                 borderRadius: 25,
-                backgroundColor: '#FFBA49'
+                backgroundColor: "#FFBA49",
               }}
             >
               <Text
                 style={{
-                  color: '#fff',
+                  color: "#fff",
                   marginLeft: 17,
                   marginTop: 4,
                   fontSize: 28,
-                  fontWeight: 'bold'
+                  fontWeight: "bold",
                 }}
               >
                 +
@@ -111,7 +111,7 @@ const Place = () => {
             <View style={{ paddingTop: 24 }} key={i}>
               <View>
                 <Text
-                  style={{ fontSize: 26, color: '#5B7488', fontWeight: 'bold' }}
+                  style={{ fontSize: 26, color: "#5B7488", fontWeight: "bold" }}
                 >
                   Paradas
                 </Text>
@@ -129,34 +129,34 @@ export default Place;
 
 const styles = StyleSheet.create({
   header: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    alignSelf: "stretch",
+    justifyContent: "space-between",
     paddingTop: 20 + Constants.statusBarHeight,
-    position: 'absolute',
-    minWidth: '100%'
+    position: "absolute",
+    minWidth: "100%",
   },
   image: {
     height: 300,
-    width: 'auto'
+    width: "auto",
   },
   information: {
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
-    backgroundColor: '#FFFFFF',
-    minWidth: '100%',
-    maxWidth: '100%',
-    height: 450,
-    position: 'absolute',
+    backgroundColor: "#FFFFFF",
+    minWidth: "100%",
+    maxWidth: "100%",
+    height: 650,
+    position: "absolute",
     marginTop: 200,
-    flex: 1
+    flex: 1,
   },
   collapse: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 46,
     height: 4,
     top: 10,
-    backgroundColor: '#80A1C1',
-    borderRadius: 10
-  }
+    backgroundColor: "#80A1C1",
+    borderRadius: 10,
+  },
 });
