@@ -30,21 +30,29 @@ interface Post {
 
 const posts = [
   {
+    userName: "",
+    userImage: "",
     dateTime: "12/06/2020 - 11:00",
     photo: require("../../assets/parada1.png"),
     whatsapp: "5547999999999",
   },
   {
+    userName: "",
+    userImage: "",
     dateTime: "11/06/2020 - 08:32",
     photo: require("../../assets/parada2.png"),
     whatsapp: "5547999999999",
   },
   {
+    userName: "",
+    userImage: "",
     dateTime: "09/06/2020 - 10:10",
     photo: require("../../assets/parada3.png"),
     whatsapp: "5547999999999",
   },
   {
+    userName: "",
+    userImage: "",
     dateTime: "06/06/2020 - 23:10",
     photo: require("../../assets/parada4.png"),
     whatsapp: "5547999999999",
@@ -126,6 +134,28 @@ const Profile = () => {
             <Icon name="user-plus" size={30} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            flex: 1,
+            minWidth: "100%",
+            marginTop: 50,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              paddingVertical: 8,
+              minWidth: "100%",
+              textAlign: "center",
+            }}
+          >
+            {routeParams.props.userName}
+          </Text>
+        </View>
       </ImageBackground>
 
       <View style={styles.information}>
@@ -177,6 +207,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#FFFFFF",
+    position: "absolute",
   },
   imageBackground: {
     width: "auto",
@@ -192,15 +223,15 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginTop: 10,
-    marginBottom: 70,
+    marginBottom: 40,
   },
   information: {
-    marginTop: 120,
+    marginTop: 32,
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     backgroundColor: "#FFFFFF",
     minWidth: "100%",
-    height: 700,
+    height: 650,
   },
   collapse: {
     alignSelf: "center",
@@ -241,6 +272,8 @@ const styles = StyleSheet.create({
   },
   moment: {
     padding: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
   },
   moments: {
     padding: 15,
